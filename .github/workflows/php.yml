@@ -32,4 +32,4 @@ jobs:
 
       # Run PHPStan
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --memory-limit=512M
+        run: vendor/bin/phpstan analyse app --memory-limit=512M

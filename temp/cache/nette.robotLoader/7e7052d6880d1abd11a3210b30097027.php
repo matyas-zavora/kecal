@@ -36,8 +36,8 @@ return array (
   1 => 
   array (
     'null' => 1,
-    'App\\UI\\Home\\HomeDefaultTemplate' => 1,
-    'App\\UI\\Home\\HomeTemplate' => 1,
+    'App\\UI\\Home\\HomeDefaultTemplate' => 3,
+    'App\\UI\\Home\\HomeTemplate' => 3,
   ),
   2 => 
   array (

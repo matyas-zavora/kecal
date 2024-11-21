@@ -1,0 +1,42 @@
+{
+	"name": "nette/code-checker",
+	"description": "✅ Nette CodeChecker: A simple tool to check source code against a set of Nette coding standards.",
+	"keywords": ["nette", "analyse", "code"],
+	"type": "project",
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "https://davidgrudl.com"
+		}
+	],
+	"require": {
+		"php": ">= 8.0",
+		"nette/command-line": "^2.0",
+		"nette/utils": "^4.0",
+		"nette/neon": "^3.0",
+		"latte/latte": "^3.0.1",
+		"nette/forms": "^3.0",
+		"nette/caching": "^3.1",
+		"nette/application": "^3.1"
+	},
+	"require-dev": {
+		"nette/tester": "^2.0",
+		"tracy/tracy": "^2.6",
+		"phpstan/phpstan": "^0.12"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"bin": ["code-checker"],
+	"minimum-stability": "dev",
+	"scripts": {
+		"phpstan": "phpstan analyse",
+		"tester": "tester tests -s"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "3.3-dev"
+		}
+	}
+}

@@ -32,16 +32,16 @@ final class SignupPresenter extends Nette\Application\UI\Presenter
             ->setRequired('Please enter your password.');
 
         // Add the check password field with styling
-        $form->addPassword('check_password', 'Password')
+        $form->addPassword('check_password', 'Check password')
             ->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
             ->setHtmlAttribute('placeholder', ' ')
             ->setRequired('Please enter your password again.');
 
         // Add the submit button
-        $form->addSubmit('submit', 'Sign in')
+        $form->addSubmit('submit', 'Sign up')
             ->setHtmlAttribute('class', 'btn btn-primary mt-4 btn-lg w-100');
 
-        $form->setHtmlAttribute('class', 'login-form position-relative border p-5 rounded-3 shadow-lg w-50 row ');
+        $form->setHtmlAttribute('class', 'login-form position-relative border p-5 mx-2 rounded-3 shadow-lg row col-sm-8 col-lg-6 col-xl-4');
         // Handle the form success
         $form->onSuccess[] = [$this, 'signupFormSucceeded'];
 

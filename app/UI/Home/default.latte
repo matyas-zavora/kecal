@@ -2,14 +2,14 @@
 {block content}
 <div class="login d-flex vh-100 justify-content-center align-items-center position-relative text-white">
     <img src="media/background.jpg" class="login-img position-absolute w-100 h-100">
-    <form class="login-form position-relative border mx-5 p-5 rounded-3 shadow-lg w-50 row">
+    {form logInForm}
         <h1 class="logint-title text-center">Log in</h1>
 
         <div class="login-content">
             <div class="login-box row align-items-center position-relative border-bottom py-2 my-4">
                 <i class="ri-user-line col-1 fs-3"></i>
                 <div class="login-box-input position-relative col mt-2 ">
-                    <input type="email" class="login-input form-control p-2 border-0 text-white" required placeholder=" ">
+                    {input email}
                     <label for="" class="login-label position-absolute px-2 fw-bold fs-6">Email</label>
                 </div>
             </div>
@@ -17,19 +17,17 @@
             <div class="login-box row align-items-center position-relative border-bottom py-2 my-4">
                 <i class="ri-lock-line col-1 fs-3"></i>
                 <div class=" login-box-input position-relative col mt-2 ">
-                    <input type="password" class="login-input form-control p-2 border-0 text-white " required placeholder=" ">
+                    {input password}
                     <label for="" class="login-label login-label position-absolute px-2 fw-bold fs-6">Password</label>
                 </div>
             </div>
         </div>
 
         <div class="d-flex justify-content-center">
-            <button type="submit" form="logInForm" class="btn btn-primary mt-4 btn-lg w-100 ">
-                Sign in
-            </button>
+            {input submit}
         </div>
-        <p class="pt-3 text-center">Don't have an account? <a href="">Sign up</a> here</p>
-    </form>
+        <p class="pt-3 text-center">Don't have an account? <a n:href="SignUp:">Sign up</a> here</p>
+    {/form}
 
 </div>
 

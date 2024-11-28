@@ -49,7 +49,7 @@ final class Template_9d8e10121c extends Latte\Runtime\Template
 			object-fit: cover;
 		}
 		.login-form{
-			backdrop-filter: blur(10px);
+			backdrop-filter: blur(8px);
 		}
 		.login-input{
 			background: none;
@@ -58,7 +58,7 @@ final class Template_9d8e10121c extends Latte\Runtime\Template
 			top: 5px;
 		}
 		.login-input:focus + .login-label{
-			top:-20px;
+			top:-16px;
 
 		}
 		.login-input:focus{

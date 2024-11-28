@@ -81,7 +81,7 @@ final class Template_9d239a2560 extends Latte\Runtime\Template
                     ';
 		echo Nette\Bridges\FormsLatte\Runtime::item('check_password', $this->global)->getControl() /* line 36 */;
 		echo '
-                    <label class="login-label position-absolute px-2 fw-bold fs-6">Password</label>
+                    <label class="login-label position-absolute px-2 fw-bold fs-6">Check password</label>
                 </div>
             </div>
         </div>

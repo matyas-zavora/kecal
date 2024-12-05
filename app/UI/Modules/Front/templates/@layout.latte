@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	{*	Remixicon*}
+	<link
+			href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+			rel="stylesheet"
+	/>
+	<style>
+		.login-form{
+			object-position: center;
+			object-fit: cover;
+		}
+		.login-form{
+			backdrop-filter: blur(8px);
+		}
+		.login-input{
+			background: none;
+		}
+		.login-label{
+			top: 10px;
+		}
+		.login-input:focus + .login-label{
+			top:-16px;
+
+		}
+		.login-input:focus{
+			background: none;
+		}
+		.login-input:not(:placeholder-shown).login-input:not(:focus) + .login-label{
+			top:-20px;
+
+		}
+
+
+	</style>
+</head>
+
+<body>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+{include content}
+
+	{block scripts}
+	<script src="https://unpkg.com/nette-forms@3"></script>
+{/block}
+</body>
+</html>

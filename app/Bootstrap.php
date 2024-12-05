@@ -1,50 +1,72 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace App;
 
-use Nette;
-use Nette\Bootstrap\Configurator;
+use Contributte\Bootstrap\ExtraConfigurator;
+use Nette\Application\Application as NetteApplication;
+use Nette\DI\Compiler;
+use Symfony\Component\Console\Application as SymfonyApplication;
+use Tracy\Debugger;
 
-
-class Bootstrap
+final class Bootstrap
 {
-	private Configurator $configurator;
-	private string $rootDir;
 
-
-	public function __construct()
+	public static function boot(): ExtraConfigurator
 	{
-		$this->rootDir = dirname(__DIR__);
-		$this->configurator = new Configurator;
-		$this->configurator->setTempDirectory($this->rootDir . '/temp');
+		$configurator = new ExtraConfigurator();
+		$configurator->setTempDirectory(__DIR__ . '/../var/tmp');
+
+		$configurator->onCompile[] = function (ExtraConfigurator $configurator, Compiler $compiler): void {
+			// Add env variables to config structure
+			$compiler->addConfig(['parameters' => $configurator->getEnvironmentParameters()]);
+		};
+
+		// According to NETTE_DEBUG env
+		$configurator->setEnvDebugMode();
+
+		// Enable tracy and configure it
+		$configurator->enableTracy(__DIR__ . '/../var/log');
+		Debugger::$errorTemplate = __DIR__ . '/../resources/tracy/500.phtml';
+
+		// Provide some parameters
+		$configurator->addStaticParameters([
+			'rootDir' => realpath(__DIR__ . '/..'),
+			'appDir' => __DIR__,
+			'wwwDir' => realpath(__DIR__ . '/../www'),
+		]);
+
+		// Load development or production config
+		if (getenv('NETTE_ENV', true) === 'dev') {
+			$configurator->addConfig(__DIR__ . '/../config/env/dev.neon');
+		} else {
+			$configurator->addConfig(__DIR__ . '/../config/env/prod.neon');
+		}
+
+		$configurator->addConfig(__DIR__ . '/../config/local.neon');
+
+		return $configurator;
 	}
 
-
-	public function bootWebApplication(): Nette\DI\Container
+	public static function runWeb(): void
 	{
-		$this->initializeEnvironment();
-		$this->setupContainer();
-		return $this->configurator->createContainer();
+		self::boot()
+			->addStaticParameters([
+				'scope' => 'web',
+			])
+			->createContainer()
+			->getByType(NetteApplication::class)
+			->run();
 	}
 
-
-	public function initializeEnvironment(): void
+	public static function runCli(): void
 	{
-		//$this->configurator->setDebugMode('secret@23.75.345.200'); // enable for your remote IP
-		$this->configurator->enableTracy($this->rootDir . '/log');
-
-		$this->configurator->createRobotLoader()
-			->addDirectory(__DIR__)
-			->register();
+		self::boot()
+			->addStaticParameters([
+				'scope' => 'cli',
+			])
+			->createContainer()
+			->getByType(SymfonyApplication::class)
+			->run();
 	}
 
-
-	private function setupContainer(): void
-	{
-		$configDir = $this->rootDir . '/config';
-		$this->configurator->addConfig($configDir . '/common.neon');
-		$this->configurator->addConfig($configDir . '/services.neon');
-	}
 }

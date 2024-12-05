@@ -1,26 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\UI\Modules\SignUp;
+namespace App\UI\Modules\Front\SignUp;
 
-class SignUpPresenter
+use Nette;
+use Nette\Forms\Form;
+
+class SignUpPresenter extends Nette\Application\UI\Presenter
 {
-
-	public function signupFormSucceeded(Form $form, \stdClass $values): void
-	{
-		// Implement your login logic here
-		$email = $values->email;
-		$password = $values->password;
-
-		// Example: Verify user credentials
-		if ($email === '123@example.com' && $password === '123') {
-			$this->flashMessage('Login successful!', 'success');
-			$this->redirect('Home:default');
-		} else {
-			$this->flashMessage('Invalid email or password.', 'danger');
-		}
-	}
-
-	protected function createComponentSignUpForm(): Form
+	public function createComponentSignUpForm(): Form
 	{
 		$form = new Form();
 		// Add the username
@@ -58,4 +45,19 @@ class SignUpPresenter
 		return $form;
 	}
 
+	public function signupFormSucceeded(Form $form): void
+	{
+		$values = $form->getValues();
+		// Implement your login logic here
+		$email = $values->email;
+		$password = $values->password;
+
+		// Example: Verify user credentials
+		if ($email === '123@example.com' && $password === '123') {
+			$this->flashMessage('Login successful!', 'success');
+			$this->redirect('Home:default');
+		} else {
+			$this->flashMessage('Invalid email or password.', 'danger');
+		}
+	}
 }

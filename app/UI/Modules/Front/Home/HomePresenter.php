@@ -2,12 +2,16 @@
 
 namespace App\UI\Modules\Front\Home;
 
-use App\UI\Modules\Front\BaseFrontPresenter;
 use Nette;
-use Nette\Application\UI\Form;
 
-final class HomePresenter extends Nette\Application\UI\Presenter
+class HomePresenter extends Nette\Application\UI\Presenter
 {
+
+	public function renderDefault(): void
+	{
+		$this->template->setFile(__DIR__ . '/default.latte');
+	}
+
 //    protected function createComponentLogInForm(): Form
 //    {
 //        $form = new Form;
@@ -21,4 +25,5 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 //
 //        return $form;
 //    }
+
 }

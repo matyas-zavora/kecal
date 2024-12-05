@@ -10,16 +10,16 @@ use Tracy\Debugger;
 
 final class Bootstrap
 {
-
 	public static function boot(): ExtraConfigurator
 	{
 		$configurator = new ExtraConfigurator();
 		$configurator->setTempDirectory(__DIR__ . '/../var/tmp');
 
-		$configurator->onCompile[] = function (ExtraConfigurator $configurator, Compiler $compiler): void {
+		$configurator->onCompile[] = static function (ExtraConfigurator $configurator, Compiler $compiler): void {
 			// Add env variables to config structure
 			$compiler->addConfig(['parameters' => $configurator->getEnvironmentParameters()]);
 		};
+
 
 		// According to NETTE_DEBUG env
 		$configurator->setEnvDebugMode();

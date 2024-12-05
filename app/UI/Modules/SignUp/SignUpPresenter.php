@@ -1,12 +1,28 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\UI\Modules\SignUp;
 
 class SignUpPresenter
 {
+
+	public function signupFormSucceeded(Form $form, \stdClass $values): void
+	{
+		// Implement your login logic here
+		$email = $values->email;
+		$password = $values->password;
+
+		// Example: Verify user credentials
+		if ($email === '123@example.com' && $password === '123') {
+			$this->flashMessage('Login successful!', 'success');
+			$this->redirect('Home:default');
+		} else {
+			$this->flashMessage('Invalid email or password.', 'danger');
+		}
+	}
+
 	protected function createComponentSignUpForm(): Form
 	{
-		$form = new Form;
+		$form = new Form();
 		// Add the username
 		$form->addText('username', 'Username')
 			->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
@@ -42,18 +58,4 @@ class SignUpPresenter
 		return $form;
 	}
 
-	public function signupFormSucceeded(Form $form, \stdClass $values): void
-	{
-		// Implement your login logic here
-		$email = $values->email;
-		$password = $values->password;
-
-		// Example: Verify user credentials
-		if ($email === '123@example.com' && $password === '123') {
-			$this->flashMessage('Login successful!', 'success');
-			$this->redirect('Home:default');
-		} else {
-			$this->flashMessage('Invalid email or password.', 'danger');
-		}
-	}
 }

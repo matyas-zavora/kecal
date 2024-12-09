@@ -6290,16 +6290,16 @@
         },
         {
             "name": "contributte/qa",
-            "version": "v0.3.1",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/contributte/qa.git",
-                "reference": "b2bfba8a847f52723d31b7ce67311f1226b70713"
+                "reference": "10e6b8c5eef97588f480bd7874d50a3bdb031933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contributte/qa/zipball/b2bfba8a847f52723d31b7ce67311f1226b70713",
-                "reference": "b2bfba8a847f52723d31b7ce67311f1226b70713",
+                "url": "https://api.github.com/repos/contributte/qa/zipball/10e6b8c5eef97588f480bd7874d50a3bdb031933",
+                "reference": "10e6b8c5eef97588f480bd7874d50a3bdb031933",
                 "shasum": ""
             },
             "require": {
@@ -6342,7 +6342,7 @@
             ],
             "support": {
                 "issues": "https://github.com/contributte/qa/issues",
-                "source": "https://github.com/contributte/qa/tree/v0.3.1"
+                "source": "https://github.com/contributte/qa/tree/v0.3.2"
             },
             "funding": [
                 {
@@ -6354,7 +6354,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-10T13:25:20+00:00"
+            "time": "2024-12-06T16:11:13+00:00"
         },
         {
             "name": "contributte/tester",
@@ -7892,5 +7892,5 @@
         "php": ">=8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }

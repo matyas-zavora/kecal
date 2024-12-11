@@ -182,4 +182,9 @@ class User extends AbstractEntity
 		]);
 	}
 
+	public function verifyPassword(string $password)
+	{
+		return password_verify($password, $this->password);
+	}
+
 }

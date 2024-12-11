@@ -1,6 +1,6 @@
 {block content}
 <div class="login d-flex vh-100 justify-content-center align-items-center position-relative text-white">
-	<img src="assets/media/background.jpg" class="login-img position-absolute w-100 h-100">
+	<img src="/assets/media/background.jpg" class="login-img position-absolute w-100 h-100">
 
 	{form signUpForm}
 		<h1 class="login-title text-center position-relative">Sign up</h1>
@@ -38,10 +38,13 @@
 			</div>
 		</div>
 
+		{input name}
+		{input surname}
+
 		<div class="d-flex justify-content-center">
 			{input submit}
 		</div>
-		<p class="pt-3 text-center position-relative">You have an account already? <a n:href="Home:">Log in</a> here</p>
+		<p class="pt-3 text-center position-relative">You have an account already? <a n:href="LogIn:">Log in</a> here</p>
 	{/form}
 
 </div>

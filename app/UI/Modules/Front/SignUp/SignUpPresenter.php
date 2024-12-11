@@ -2,15 +2,37 @@
 
 namespace App\UI\Modules\Front\SignUp;
 
+use App\Domain\User\User;
+use App\Domain\User\UserRepository;
+use App\Model\Security\Passwords;
+use Doctrine\ORM\EntityManager;
 use Nette;
-use Nette\Forms\Form;
+use Nette\Application\UI\Form;
 
 class SignUpPresenter extends Nette\Application\UI\Presenter
 {
+	/** @var UserRepository @inject */
+	public UserRepository $users;
+
+	public function renderDefault(): void
+	{
+		$this->template->setFile(__DIR__ . '/signup.latte');
+	}
+
 	public function createComponentSignUpForm(): Form
 	{
 		$form = new Form();
-		// Add the username
+
+		$form->addText('name', 'Name')
+			->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
+			->setHtmlAttribute('placeholder', ' ')
+			->setRequired('Please enter your name.');
+
+		$form->addText('surname', 'Surname')
+			->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
+			->setHtmlAttribute('placeholder', ' ')
+			->setRequired('Please enter your surname.');
+
 		$form->addText('username', 'Username')
 			->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
 			->setHtmlAttribute('placeholder', ' ')
@@ -32,6 +54,7 @@ class SignUpPresenter extends Nette\Application\UI\Presenter
 		$form->addPassword('check_password', 'Password')
 			->setHtmlAttribute('class', 'login-input form-control p-2 border-0 text-white')
 			->setHtmlAttribute('placeholder', ' ')
+			->addRule($form::Equal, 'Passwords do not match.', $form['password'])
 			->setRequired('Please enter your password again.');
 
 		// Add the submit button
@@ -48,16 +71,17 @@ class SignUpPresenter extends Nette\Application\UI\Presenter
 	public function signupFormSucceeded(Form $form): void
 	{
 		$values = $form->getValues();
-		// Implement your login logic here
-		$email = $values->email;
-		$password = $values->password;
 
-		// Example: Verify user credentials
-		if ($email === '123@example.com' && $password === '123') {
-			$this->flashMessage('Login successful!', 'success');
-			$this->redirect('Home:default');
-		} else {
-			$this->flashMessage('Invalid email or password.', 'danger');
-		}
+		$password = (new Passwords())->hash($values->password);
+
+		$this->users->createNewUser(
+			name: $values->name,
+			surname: $values->surname,
+			email: $values->email,
+			username: $values->username,
+			password: $password
+		);
+
+		$this->flashMessage('You have successfully signed up.', 'success');
 	}
 }

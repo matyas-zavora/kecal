@@ -13,7 +13,6 @@ use Nette\Security\IIdentity;
 
 final class UserAuthenticator implements Authenticator
 {
-
 	public function __construct(
 		private QueryManager $qm,
 		private EntityManagerDecorator $em,
@@ -32,9 +31,9 @@ final class UserAuthenticator implements Authenticator
 
 		if ($user === null) {
 			throw new AuthenticationException('The username is incorrect.', self::IdentityNotFound);
-		} elseif (!$user->isActivated()) {
-			throw new AuthenticationException('The user is not active.', self::InvalidCredential);
-		} elseif (!$this->passwords->verify($password, $user->getPasswordHash())) {
+		}
+
+		if (!$this->passwords->verify($password, $user->getPasswordHash())) {
 			throw new AuthenticationException('The password is incorrect.', self::InvalidCredential);
 		}
 

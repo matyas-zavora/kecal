@@ -1,16 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace App\UI\Modules\Front\Home;
+namespace App\UI\Modules\Front\LogIn;
 
+use App\Domain\User\UserRepository;
+use Nette\Security\AuthenticationException;
 use Nette;
 use Nette\Forms\Form;
 
-class HomePresenter extends Nette\Application\UI\Presenter
+class LogInPresenter extends Nette\Application\UI\Presenter
 {
+	/** @var UserRepository @inject */
+	public UserRepository $users;
 
 	public function renderDefault(): void
 	{
-		$this->template->setFile(__DIR__ . '/default.latte');
+		$this->template->setFile(__DIR__ . '/login.latte');
 	}
 
 	protected function createComponentLogInForm(): Form
@@ -40,18 +44,18 @@ class HomePresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
-	public function loginFormSucceeded(Form $form, \stdClass $values): void
+	public function loginFormSucceeded(Form $form): void
 	{
-		// Implement your login logic here
-		$email = $values->email;
-		$password = $values->password;
+		$values = $form->getValues();
+		try {
+			$user = $this->users->authenticate($values->email, $values->password);
+			$this->getUser()->login($user->toIdentity());
 
-		// Example: Verify user credentials
-		if ($email === 'user@example.com' && $password === 'password') {
-			$this->redirect('Home:');
-		} else {
-			$this->flashMessage('Invalid email or password.', 'danger');
+			$this->flashMessage('Login successful', 'success');
+//			$this->redirect('Homepage:default');
+			// TODO: Redirect to Chatroom
+		} catch (\Exception $e) {
+			$this->flashMessage($e->getMessage(), 'danger');
 		}
 	}
-
 }

@@ -31,7 +31,7 @@ final class StaticAuthorizator extends Permission
 	 */
 	protected function addResources(): void
 	{
-		$this->addResource('Admin:Home');
+		$this->addResource('Admin:LogIn');
 	}
 
 	/**
@@ -40,7 +40,7 @@ final class StaticAuthorizator extends Permission
 	protected function addPermissions(): void
 	{
 		$this->allow(User::ROLE_ADMIN, [
-			'Admin:Home',
+			'Admin:LogIn',
 		]);
 	}
 

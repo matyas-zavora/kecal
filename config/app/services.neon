@@ -1,43 +1,44 @@
-# Services
-#
 services:
-	# Forms ===================
-	- App\UI\Form\FormFactory
+    # Forms ===================
+    - App\UI\Form\FormFactory
 
-	# Latte ===================
-	latte.latteFactory:
-		setup:
-			- addFilter(datetime, App\Model\Latte\Filters::datetime)
-			- addFilter(neon, App\Model\Latte\Filters::neon)
-			- addFilter(json, App\Model\Latte\Filters::json)
+    # Latte ===================
+    latte.latteFactory:
+        setup:
+            - addFilter(datetime, App\Model\Latte\Filters::datetime)
+            - addFilter(neon, App\Model\Latte\Filters::neon)
+            - addFilter(json, App\Model\Latte\Filters::json)
 
-	latte.templateFactory:
-		class: App\Model\Latte\TemplateFactory
+    latte.templateFactory:
+        class: App\Model\Latte\TemplateFactory
 
-	# Security ================
-	nette.userStorage:
-		setup:
-			- setNamespace("Webapp")
+    # Security ================
+    nette.userStorage:
+        setup:
+            - setNamespace("Webapp")
 
-	security.passwords: App\Model\Security\Passwords
-	security.user: App\Model\Security\SecurityUser
-	security.authenticator: App\Model\Security\Authenticator\UserAuthenticator
-	security.authorizator: App\Model\Security\Authorizator\StaticAuthorizator
+    security.passwords: App\Model\Security\Passwords
+    security.user: App\Model\Security\SecurityUser
+    security.authenticator: App\Model\Security\Authenticator\UserAuthenticator
+    security.authorizator: App\Model\Security\Authorizator\StaticAuthorizator
 
-	# Routing ================
-	- App\Model\Router\RouterFactory
-	router:
-		type: Nette\Application\IRouter
-		factory: @App\Model\Router\RouterFactory::create
+    # Routing ================
+    - App\Model\Router\RouterFactory
+    router:
+        type: Nette\Application\IRouter
+        factory: @App\Model\Router\RouterFactory::create
 
-	# Domain =================
-	- App\Domain\User\CreateUserFacade
+    # Domain =================
+    - App\Domain\User\CreateUserFacade
+    userRepository:
+    	class: App\Domain\User\UserRepository
+    	create: @Doctrine\ORM\EntityManagerInterface::getRepository('App\Domain\User\User')
 
-	# Console ================
-	- App\Console\HelloCommand
+    # Console ================
+    - App\Console\HelloCommand
+    - App\Model\Database\QueryManager
 
-	- App\Model\Database\QueryManager
 
 latte:
-	macros:
-		- App\Model\Latte\Macros::register
+    macros:
+        - App\Model\Latte\Macros::register

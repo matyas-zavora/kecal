@@ -10,10 +10,10 @@ class BaseForm extends Form
 
 	public function addNumeric(string $name, ?string $label = null): TextInput
 	{
-		$input = self::addText($name, $label);
-		$input->addCondition(self::FILLED)
-			->addRule(self::MAX_LENGTH, null, 255)
-			->addRule(self::NUMERIC);
+		$input = $this->addText($name, $label);
+		$input->addCondition($this::Filled)
+			->addRule($this::MaxLength, null, 255)
+			->addRule($this::Numeric);
 
 		return $input;
 	}

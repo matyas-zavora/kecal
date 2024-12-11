@@ -13,6 +13,7 @@ use Nette\Security\IIdentity;
 
 final class UserAuthenticator implements Authenticator
 {
+
 	public function __construct(
 		private QueryManager $qm,
 		private EntityManagerDecorator $em,

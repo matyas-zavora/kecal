@@ -2,21 +2,23 @@
 
 namespace App\UI\Modules\Front\SignUp;
 
-use App\Domain\User\User;
 use App\Domain\User\UserRepository;
 use App\Model\Security\Passwords;
-use Doctrine\ORM\EntityManager;
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\Presenter;
+use Nette\Application\UI\Template;
 
-class SignUpPresenter extends Nette\Application\UI\Presenter
+class SignUpPresenter extends Presenter
 {
+
 	/** @var UserRepository @inject */
 	public UserRepository $users;
 
 	public function renderDefault(): void
 	{
-		$this->template->setFile(__DIR__ . '/signup.latte');
+		/** @var Template $template */
+		$template = $this->template;
+		$template->setFile(__DIR__ . '/signup.latte');
 	}
 
 	public function createComponentSignUpForm(): Form
@@ -84,4 +86,5 @@ class SignUpPresenter extends Nette\Application\UI\Presenter
 
 		$this->flashMessage('You have successfully signed up.', 'success');
 	}
+
 }

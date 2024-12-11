@@ -33,4 +33,5 @@ final class RouterFactory
 		$this->router[] = $list = new RouteList('Front');
 		$list->addRoute('<presenter>/<action>[/<id>]', 'LogIn:default');
 	}
+
 }

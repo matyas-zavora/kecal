@@ -2,9 +2,8 @@
 
 namespace App\Domain\User;
 
-use App\Exceptions\User\InvalidPasswordException;
-use App\Exceptions\User\UserNotFoundException;
 use App\Model\Database\Repository\AbstractRepository;
+use Exception;
 
 /**
  * @method User|NULL find($id, ?int $lockMode = NULL, ?int $lockVersion = NULL)
@@ -15,6 +14,7 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class UserRepository extends AbstractRepository
 {
+
 	public function findOneByEmail(string $email): ?User
 	{
 		return $this->findOneBy(['email' => $email]);
@@ -43,13 +43,24 @@ class UserRepository extends AbstractRepository
 
 	public function authenticate(string|null $email, string|null $password): User
 	{
+		if ($email === null) {
+			throw new Exception('Email is required');
+		}
+
+		if ($password === null) {
+			throw new Exception('Password is required');
+		}
+
 		$user = $this->findOneByEmail($email);
-		if ($user === NULL) {
-			throw new \Exception("User not found");
+		if ($user === null) {
+			throw new Exception('User not found');
 		}
+
 		if (!$user->verifyPassword($password)) {
-			throw new \Exception("Invalid password");
+			throw new Exception('Invalid password');
 		}
+
 		return $user;
 	}
+
 }

@@ -3,23 +3,41 @@
 namespace App\UI\Modules\Front\LogIn;
 
 use App\Domain\User\UserRepository;
-use Nette\Security\AuthenticationException;
-use Nette;
+use Nette\Application\UI\Presenter;
+use Nette\Application\UI\Template;
 use Nette\Forms\Form;
 
-class LogInPresenter extends Nette\Application\UI\Presenter
+class LogInPresenter extends Presenter
 {
+
 	/** @var UserRepository @inject */
 	public UserRepository $users;
 
 	public function renderDefault(): void
 	{
-		$this->template->setFile(__DIR__ . '/login.latte');
+		/** @var Template $template */
+		$template = $this->template;
+		$template->setFile(__DIR__ . '/login.latte');
+	}
+
+	public function loginFormSucceeded(Form $form): void
+	{
+		$values = $form->getValues();
+		try {
+			$user = $this->users->authenticate($values->email, $values->password);
+			$this->getUser()->login($user->toIdentity());
+
+			$this->flashMessage('Login successful', 'success');
+//          $this->redirect('Homepage:default');
+			// TODO: Redirect to Chatroom
+		} catch (\Throwable $e) {
+			$this->flashMessage($e->getMessage(), 'danger');
+		}
 	}
 
 	protected function createComponentLogInForm(): Form
 	{
-		$form = new \Nette\Application\UI\Form;
+		$form = new \Nette\Application\UI\Form();
 
 		// Add the email field with styling
 		$form->addEmail('email', 'Email')
@@ -44,18 +62,4 @@ class LogInPresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
-	public function loginFormSucceeded(Form $form): void
-	{
-		$values = $form->getValues();
-		try {
-			$user = $this->users->authenticate($values->email, $values->password);
-			$this->getUser()->login($user->toIdentity());
-
-			$this->flashMessage('Login successful', 'success');
-//			$this->redirect('Homepage:default');
-			// TODO: Redirect to Chatroom
-		} catch (\Exception $e) {
-			$this->flashMessage($e->getMessage(), 'danger');
-		}
-	}
 }

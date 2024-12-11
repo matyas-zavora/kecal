@@ -15,6 +15,7 @@ trait TFlashMessage
 	/**
 	 * @param string|stdClass|HtmlStringable $message
 	 * @internal
+	 * @phpstan-ignore-next-line
 	 */
 	public function flashMessage(mixed $message, string $type = 'info'): stdClass
 	{

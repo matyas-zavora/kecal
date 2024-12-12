@@ -24,6 +24,12 @@ class LogInPresenter extends Presenter
 		$template->setFile(__DIR__ . '/login.latte');
 	}
 
+	public function renderOut(): void
+	{
+		$this->getUser()->logout();
+		$this->redirect('LogIn:default');
+	}
+
 	public function loginFormSucceeded(Form $form): void
 	{
 		$values = $form->getValues();

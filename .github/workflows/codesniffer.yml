@@ -8,12 +8,8 @@ on:
         - cron: "0 8 * * 1"
 
 jobs:
-    codesniffer:
-        name: "Codesniffer"
-        uses: contributte/.github/.github/workflows/codesniffer.yml@v1
-
     setup:
-        name: "Setup PHP 8.2, Composer, and Install Dependencies"
+        name: "Setup PHP 8.2, Composer, Install Dependencies and run Codesniffer"
         runs-on: ubuntu-latest
         steps:
             - name: Set up PHP 8.2

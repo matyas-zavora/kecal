@@ -1,17 +1,34 @@
-name: "Phpstan"
+name: "PHPStan"
 
 on:
-  pull_request:
-
-  push:
-    branches: ["*"]
-
-  schedule:
-    - cron: "0 8 * * 1"
+    pull_request:
+    push:
+        branches: ["*"]
+    schedule:
+        - cron: "0 8 * * 1"
 
 jobs:
-  phpstan:
-    name: "Phpstan"
-    uses: contributte/.github/.github/workflows/phpstan.yml@v1
-    with:
-      make: "init phpstan"
+    phpstan:
+        name: "Run PHPStan"
+        runs-on: ubuntu-latest
+
+        steps:
+            # Step to checkout code
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            # Set up PHP 8.2 (or 8.3 if necessary)
+            - name: Set up PHP 8.2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+
+            # Install Composer dependencies (if you need them for PHPStan)
+            - name: Install dependencies
+              run: |
+                  composer install --no-progress --no-suggest --prefer-dist
+
+            # Run PHPStan (or execute the provided command from the makefile)
+            - name: Run PHPStan
+              run: |
+                  make init phpstan

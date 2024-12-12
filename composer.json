@@ -32,8 +32,8 @@
     "contributte/utils": "^0.6.0",
     "contributte/tracy": "^0.6.0",
     "contributte/pdf": "^7.0.0",
-
-    "nettrine/annotations": "^0.7.0",
+    "doctrine/annotations": "^1.6",
+    "doctrine/lexer": "^2.0",
     "nettrine/orm": "^0.8.0",
     "nettrine/dbal": "^0.8.0",
     "nettrine/cache": "^0.3.0",

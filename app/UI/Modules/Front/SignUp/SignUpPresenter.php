@@ -19,6 +19,7 @@ class SignUpPresenter extends Presenter
 		/** @var Template $template */
 		$template = $this->template;
 		$template->setFile(__DIR__ . '/signup.latte');
+		$template->title = "Sign up";
 	}
 
 	public function createComponentSignUpForm(): Form

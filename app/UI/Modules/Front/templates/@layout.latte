@@ -4,7 +4,26 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<!-- Favicon for all browsers -->
+	<link rel="icon" href="/assets/media/favicon/favicon.ico" type="image/x-icon">
+
+	<!-- Favicon for 16x16 size (common in older browsers) -->
+	<link rel="icon" href="/assets/media/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+
+	<!-- Favicon for 32x32 size (most common modern browsers) -->
+	<link rel="icon" href="/assets/media/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+
+	<!-- Favicon for Apple devices -->
+	<link rel="apple-touch-icon" href="/assets/media/favicon/apple-touch-icon.png">
+
+	<!-- Favicon for Android and other platforms -->
+	<link rel="icon" href="/assets/media/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
+	<link rel="icon" href="/assets/media/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
+
+	<!-- Web manifest for PWA (Progressive Web App) -->
+	<link rel="manifest" href="/assets/media/favicon/site.webmanifest">
+
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Kecal</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	{*	Remixicon*}
 	<link
@@ -48,6 +67,9 @@
 
 	{block scripts}
 	<script src="https://unpkg.com/nette-forms@3"></script>
+{/block}
+{block title}
+	{$title}
 {/block}
 </body>
 </html>

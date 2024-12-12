@@ -15,6 +15,10 @@ class LogInPresenter extends Presenter
 
 	public function renderDefault(): void
 	{
+		if ($this->getUser()->isLoggedIn()) {
+			$this->redirect('Chatroom:default');
+		}
+
 		/** @var Template $template */
 		$template = $this->template;
 		$template->setFile(__DIR__ . '/login.latte');

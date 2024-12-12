@@ -13,7 +13,7 @@ jobs:
         uses: contributte/.github/.github/workflows/codesniffer.yml@v1
 
     setup:
-        name: "Setup PHP and Composer"
+        name: "Setup PHP 8.2, Composer, and Install Dependencies"
         runs-on: ubuntu-latest
         steps:
             - name: Set up PHP 8.2
@@ -21,8 +21,16 @@ jobs:
               with:
                   php-version: '8.2'
 
-            - name: Install Composer
-              run: curl -sS https://getcomposer.org/installer | php
-            - name: Install dependencies
-              run: |
-                  php composer.phar install
+            - name: Cache Composer dependencies
+              uses: actions/cache@v3
+              with:
+                  path: ~/.composer/cache
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+            - name: Install Composer dependencies
+              run: composer install --no-interaction --prefer-dist --prefer-stable --with-all-dependencies
+
+            - name: Run Codesniffer
+              run: make codesniffer

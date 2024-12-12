@@ -30,7 +30,7 @@ jobs:
                       ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
 
             - name: Install Composer dependencies
-              run: composer install --no-interaction --prefer-dist --with-all-dependencies
+              run: composer install --no-interaction --prefer-dist
 
             - name: Run Codesniffer
               run: make codesniffer

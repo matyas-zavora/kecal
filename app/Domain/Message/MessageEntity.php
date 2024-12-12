@@ -16,56 +16,57 @@ use Doctrine\ORM\Mapping as ORM;
 class MessageEntity extends AbstractEntity
 {
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
+	/**
+	 * @ORM\Id
+	 * @ORM\GeneratedValue
+	 * @ORM\Column(type="integer")
+	 */
+	private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private User $sender;
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private User $sender;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ChatroomEntity $chatroom;
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private ChatroomEntity $chatroom;
 
-    /** @ORM\Column(type="datetime") */
-    private DateTime $sentAt;
+	/** @ORM\Column(type="datetime") */
+	private DateTime $sentAt;
 
-    /** @ORM\Column(type="text") */
-    private string $content;
+	/** @ORM\Column(type="text") */
+	private string $content;
 
-    public function __construct(User $sender, ChatroomEntity $chatroom, string $content)
-    {
-        $this->sender = $sender;
-        $this->chatroom = $chatroom;
-        $this->content = $content;
-        $this->sentAt = new DateTime();
-    }
+	public function __construct(User $sender, ChatroomEntity $chatroom, string $content)
+	{
+		$this->sender = $sender;
+		$this->chatroom = $chatroom;
+		$this->content = $content;
+		$this->sentAt = new DateTime();
+	}
 
-    public function getSender(): User
-    {
-        return $this->sender;
-    }
+	public function getSender(): User
+	{
+		return $this->sender;
+	}
 
-    public function getChatroom(): ChatroomEntity
-    {
-        return $this->chatroom;
-    }
+	public function getChatroom(): ChatroomEntity
+	{
+		return $this->chatroom;
+	}
 
-    public function getSentAt(): DateTime
-    {
-        return $this->sentAt;
-    }
+	public function getSentAt(): DateTime
+	{
+		return $this->sentAt;
+	}
 
-    public function getContent(): string
-    {
-        return $this->content;
-    }
+	public function getContent(): string
+	{
+		return $this->content;
+	}
+
 }

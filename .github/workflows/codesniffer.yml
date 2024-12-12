@@ -21,6 +21,9 @@ jobs:
               with:
                   php-version: '8.2'
 
+            - name: Checkout code
+              uses: actions/checkout@v2
+
             - name: Cache Composer dependencies
               uses: actions/cache@v3
               with:
@@ -31,6 +34,7 @@ jobs:
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --prefer-dist
+              working-directory: ./ # Make sure this points to the folder containing `composer.json`
 
             - name: Run Codesniffer
               run: make codesniffer

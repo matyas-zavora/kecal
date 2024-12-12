@@ -28,7 +28,7 @@ jobs:
                       ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
 
             - name: Install Composer dependencies
-              run: composer install --no-interaction --prefer-dist --prefer-stable --with-all-dependencies
+              run: composer install --no-interaction --prefer-dist
 
             - name: Run PHPUnit tests
               run: make init tests
@@ -51,7 +51,7 @@ jobs:
                       ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
 
             - name: Install Composer dependencies
-              run: composer install --no-interaction --prefer-dist --prefer-stable --with-all-dependencies
+              run: composer install --no-interaction --prefer-dist
 
             - name: Run PHPUnit tests
               run: make init tests

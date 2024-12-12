@@ -21,7 +21,7 @@ class LogInPresenter extends Presenter
 
 		/** @var Template $template */
 		$template = $this->template;
-		$this->template->title = "Log in";
+		$this->template->title = 'Log in';
 		$template->setFile(__DIR__ . '/login.latte');
 	}
 

@@ -13,6 +13,7 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class MessageRepository extends AbstractRepository
 {
+	/** @return MessageEntity[] */
     public function getMessagesForChatroom(int $chatroomId): array
     {
         return $this->createQueryBuilder('m')

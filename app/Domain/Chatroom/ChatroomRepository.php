@@ -13,6 +13,7 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class ChatroomRepository extends AbstractRepository
 {
+    /** @return ChatroomEntity[] */
     public function getAllChatroomsForUser(int $userId): array
     {
         return $this->createQueryBuilder('c')

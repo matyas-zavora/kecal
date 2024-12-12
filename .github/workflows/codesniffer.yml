@@ -34,7 +34,8 @@ jobs:
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --prefer-dist
-              working-directory: ./ # Make sure this points to the folder containing `composer.json`
+              working-directory: ./
 
             - name: Run Codesniffer
-              run: make codesniffer
+              run: make cs
+              working-directory: ./

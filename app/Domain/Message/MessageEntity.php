@@ -35,7 +35,7 @@ class MessageEntity extends AbstractEntity
 	 */
 	private ChatroomEntity $chatroom;
 
-	/** @ORM\Column(type="text") */
+	/** @ORM\Column(type="datetime") */
 	private DateTime $sentAt;
 
 	/** @ORM\Column(type="text") */

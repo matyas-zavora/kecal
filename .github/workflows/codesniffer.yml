@@ -1,15 +1,28 @@
 name: "Codesniffer"
 
 on:
-  pull_request:
-
-  push:
-    branches: ["*"]
-
-  schedule:
-    - cron: "0 8 * * 1"
+    pull_request:
+    push:
+        branches: ["*"]
+    schedule:
+        - cron: "0 8 * * 1"
 
 jobs:
-  codesniffer:
-    name: "Codesniffer"
-    uses: contributte/.github/.github/workflows/codesniffer.yml@v1
+    codesniffer:
+        name: "Codesniffer"
+        uses: contributte/.github/.github/workflows/codesniffer.yml@v1
+
+    setup:
+        name: "Setup PHP and Composer"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set up PHP 8.2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+
+            - name: Install Composer
+              run: curl -sS https://getcomposer.org/installer | php
+            - name: Install dependencies
+              run: |
+                  php composer.phar install

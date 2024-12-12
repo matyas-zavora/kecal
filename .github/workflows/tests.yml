@@ -29,6 +29,7 @@ jobs:
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --prefer-dist
+              working-directory: ./
 
             - name: Run PHPUnit tests
               run: make init tests
@@ -52,6 +53,7 @@ jobs:
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --prefer-dist
+              working-directory: ./
 
             - name: Run PHPUnit tests
               run: make init tests

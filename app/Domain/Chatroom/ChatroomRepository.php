@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Domain\Chatroom;
 
@@ -13,13 +13,15 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class ChatroomRepository extends AbstractRepository
 {
-    /** @return ChatroomEntity[] */
-    public function getAllChatroomsForUser(int $userId): array
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.user1 = :userId OR c.user2 = :userId')
-            ->setParameter('userId', $userId)
-            ->getQuery()
-            ->getResult();
-    }
+
+	/** @return ChatroomEntity[] */
+	public function getAllChatroomsForUser(int $userId): array
+	{
+		return $this->createQueryBuilder('c')
+			->where('c.user1 = :userId OR c.user2 = :userId')
+			->setParameter('userId', $userId)
+			->getQuery()
+			->getResult();
+	}
+
 }

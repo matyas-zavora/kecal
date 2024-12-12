@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Domain\Message;
 
@@ -13,13 +13,15 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class MessageRepository extends AbstractRepository
 {
+
 	/** @return MessageEntity[] */
-    public function getMessagesForChatroom(int $chatroomId): array
-    {
-        return $this->createQueryBuilder('m')
-            ->where('m.chatroom = :chatroomId')
-            ->setParameter('chatroomId', $chatroomId)
-            ->getQuery()
-            ->getResult();
-    }
+	public function getMessagesForChatroom(int $chatroomId): array
+	{
+		return $this->createQueryBuilder('m')
+			->where('m.chatroom = :chatroomId')
+			->setParameter('chatroomId', $chatroomId)
+			->getQuery()
+			->getResult();
+	}
+
 }

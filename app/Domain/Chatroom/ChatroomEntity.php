@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Domain\Chatroom;
 
-use App\Model\Database\Entity\AbstractEntity;
-use Doctrine\ORM\Mapping as ORM;
 use App\Domain\User\User;
+use App\Model\Database\Entity\AbstractEntity;
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Chatroom\ChatroomRepository")
@@ -14,6 +14,7 @@ use DateTime;
  */
 class ChatroomEntity extends AbstractEntity
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -33,14 +34,10 @@ class ChatroomEntity extends AbstractEntity
 	 */
 	private User $user2;
 
-	/**
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
+	/** @ORM\Column(type="integer", nullable=true) */
 	private ?int $lastMessageUserId = null;
 
-	/**
-	 * @ORM\Column(type="datetime", nullable=true)
-	 */
+	/** @ORM\Column(type="datetime", nullable=true) */
 	private ?DateTime $lastMessageAt = null;
 
 	public function __construct(User $user1, User $user2)
@@ -98,4 +95,5 @@ class ChatroomEntity extends AbstractEntity
 
 		return $this->user1;
 	}
+
 }

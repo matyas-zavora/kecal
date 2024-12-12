@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Domain\Message;
 
+use App\Domain\Chatroom\ChatroomEntity;
+use App\Domain\User\User;
 use App\Model\Database\Entity\AbstractEntity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use App\Domain\User\User;
-use App\Domain\Chatroom\ChatroomEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Message\MessageRepository")
@@ -15,6 +15,7 @@ use App\Domain\Chatroom\ChatroomEntity;
  */
 class MessageEntity extends AbstractEntity
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -22,26 +23,22 @@ class MessageEntity extends AbstractEntity
 	 */
 	private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private User $sender;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ChatroomEntity $chatroom;
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private User $sender;
 
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
+	 * @ORM\JoinColumn(nullable=false)
 	 */
+	private ChatroomEntity $chatroom;
+
+	/** @ORM\Column(type="text") */
 	private DateTime $sentAt;
 
-	/**
-	 * @ORM\Column(type="text")
-	 */
+	/** @ORM\Column(type="text") */
 	private string $content;
 
 	public function __construct(User $sender, ChatroomEntity $chatroom, string $content)
@@ -71,4 +68,5 @@ class MessageEntity extends AbstractEntity
 	{
 		return $this->content;
 	}
+
 }

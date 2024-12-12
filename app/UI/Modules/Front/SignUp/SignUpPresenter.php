@@ -7,7 +7,6 @@ use App\Model\Security\Passwords;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Template;
-use Nette\Security\AuthenticationException;
 
 class SignUpPresenter extends Presenter
 {

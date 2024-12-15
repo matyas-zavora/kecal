@@ -1,30 +1,88 @@
 {block content}
 <div class="chat-app position-relative">
-	<div class="chat-container row">
-		<div class="chat-sidebar col-md-3 px-0">
-			<div class="chat-panel">
-				{*icon add new contact*}
-				<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f885a53ba68fc882a6a144a7d5d66bccd0a7a9a79fd659bd8057671bda37116?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
-					 alt="" class="settings-icon" />
+	{*tenhle alert by mel zobrazit jen na 3s pak zmizi, tim ze odstranuje .show class*}
+	<div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center position-fixed top-0 end-0 m-3" role="alert">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="rgba(14,151,33,1)"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+		<div class="message-alert px-2">
+			You have successfully logged in!
+		</div>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
 
+	<div class="chat-container row">
+		<div class="col-12 col-lg-1 px-0">
+				{*pro zobrazeni pod jakym jmenem ses prihlaseny*}
+				<div class="user-profile h-100 d-flex flex-lg-column flex-row justify-content-between py-3 px-4">
+					{*uzivatel, vc. jeho profilovky a jmena*}
+					<div class="profile-info d-flex flex-lg-column justify-content-center align-items-center m-1">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c1ea97710c42bb7e1bc18af26081db10e3df541627fda45417144f7a3043bc3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Brooklyn Simmons profile" class="contact-avatar" />
+						<p class=" text-white p-2 text-lg-center fs-lg-6 m-0">Brooklyn Simmons</p>
+					</div>
+
+					{*icon pro logout*}
+					<a n:href="LogIn:out" class="log-out d-flex align-items-center justify-content-end justify-content-lg-center text-decoration-none ">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="rgba(246,246,246,1)"><path d="M4 18H6V20H18V4H6V6H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V18ZM6 11H13V13H6V16L1 12L6 8V11Z"></path></svg>
+						<span class="text-white px-1">Log Out</span>
+					</a>
+				</div>
+		</div>
+		<div class="chat-sidebar col-12 col-lg-3 col-md-4 px-0">
+			<div class="chat-panel">
 				{*search bar*}
-				<div class="sidebar-content">
-					<div class="search-wrapper">
+				<div class="navbar d-flex flex-row align-items-center justify-content-between row mx-md-1 px-3">
+					<div class="search-wrapper col-10 d-flex align-items-center my-3 py-2">
 						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f1e5e4de142a9b5afb9b203111254dd6910663b983bed6476f7ca016ed374db?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
 							 alt="" class="search-icon" />
 						<label for="searchChat" class="visually-hidden">Search chat</label>
-						<input type="text" id="searchChat" class="search-text" placeholder="Search chat" />
+						<input type="text" id="searchChat" class="search-text" placeholder="Search" />
+					</div>
+
+					{*icon add new contact*}
+					<div class="d-flex align-items-center col-1 p-0">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f885a53ba68fc882a6a144a7d5d66bccd0a7a9a79fd659bd8057671bda37116?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="" class="settings-icon" />
 					</div>
 				</div>
 
-				{*Tady nize vypsat vsechny pripojene uzivatele, vc. jeho profilovky a jmena*}
-				<div class="pple py-3" style="padding-left: 2rem;">
+				{*Tvsechny pripojene uzivatele, vc. jeho profilovky a jmena*}
+				<div class="people py-3" style="padding-left: 2rem;">
+					<button class="chat-contact px-4 py-2">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2232288fedcb5d1d6dd63f6da891d979e445bd0e9f16c7869e21f14921a6718?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Marvin McKinney profile" class="contact-avatar" />
+						<span class="contact-name">Marvin McKinney</span>
+					</button>
 					<button class="chat-contact px-4 py-2">
 						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2232288fedcb5d1d6dd63f6da891d979e445bd0e9f16c7869e21f14921a6718?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
 							 alt="Marvin McKinney profile" class="contact-avatar" />
 						<span class="contact-name">Marvin McKinney</span>
 					</button>
 					<button class="chat-contact px-4 py-2 active">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50970fc55bdd8132b43abe640358d4bdf96d097482a05e81f0d2af78d51665d3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Eleanor Pena profile" class="contact-avatar" />
+						<span class="contact-name">Eleanor Pena</span>
+					</button>
+					<button class="chat-contact px-4 py-2">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2232288fedcb5d1d6dd63f6da891d979e445bd0e9f16c7869e21f14921a6718?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Marvin McKinney profile" class="contact-avatar" />
+						<span class="contact-name">Marvin McKinney</span>
+					</button>
+					<button class="chat-contact px-4 py-2 ">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50970fc55bdd8132b43abe640358d4bdf96d097482a05e81f0d2af78d51665d3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Eleanor Pena profile" class="contact-avatar" />
+						<span class="contact-name">Eleanor Pena</span>
+					</button>
+					<button class="chat-contact px-4 py-2 ">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50970fc55bdd8132b43abe640358d4bdf96d097482a05e81f0d2af78d51665d3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Eleanor Pena profile" class="contact-avatar" />
+						<span class="contact-name">Eleanor Pena</span>
+					</button>
+					<button class="chat-contact px-4 py-2">
+						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2232288fedcb5d1d6dd63f6da891d979e445bd0e9f16c7869e21f14921a6718?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
+							 alt="Marvin McKinney profile" class="contact-avatar" />
+						<span class="contact-name">Marvin McKinney</span>
+					</button>
+					<button class="chat-contact px-4 py-2 ">
 						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50970fc55bdd8132b43abe640358d4bdf96d097482a05e81f0d2af78d51665d3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
 							 alt="Eleanor Pena profile" class="contact-avatar" />
 						<span class="contact-name">Eleanor Pena</span>
@@ -48,25 +106,10 @@
 						<span class="contact-name">Savannah Nguyen</span>
 					</button>
 				</div>
-
-				{*nav - lower, pro zobrazeni pod jakym jmenem ses prihlaseny*}
-				<div class="user-profile d-flex justify-content-between px-5 py-3">
-					{*uzivatele, vc. jeho profilovky a jmena*}
-					<div class="profile-info">
-						<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c1ea97710c42bb7e1bc18af26081db10e3df541627fda45417144f7a3043bc3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
-							 alt="Brooklyn Simmons profile" class="contact-avatar" />
-						<span class="contact-name">Brooklyn Simmons</span>
-					</div>
-
-					{*icon settings*}
-					<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a293693ed4a0242978d14198226adaeb472865d778bb6a1632a25084b68b2807?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604"
-						 alt="" class="settings-icon m-0" />
-				</div>
 			</div>
 		</div>
-
-		<div class="chat-main col-md-9 px-0">
-			<div class="chat-header px-5">
+		<div class="chat-main col-12 col-lg-8 col-md-8 px-0">
+			<div class="chat-header d-flex justify-content-between align-items-center px-md-5 py-3 px-4">
 				{*Popisuje s kym pises, jeho profilovka a jmeno*}
 				<div class="profile-info">
 					<img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50970fc55bdd8132b43abe640358d4bdf96d097482a05e81f0d2af78d51665d3?placeholderIfAbsent=true&apiKey=34ae533974bd4ec98da7e77cfb894604" alt="Eleanor Pena profile" class="contact-avatar" />
@@ -78,7 +121,7 @@
 			</div>
 
 			{*Tady vyrenderujes zpravy mezi 2 usery, tj. obsah zpravy a timestamp kdyz zprava byla poslana*}
-			<div class="chat-messages ">
+			<div class="chat-messages">
 				<div class="message-bubble px-3 sent d-flex flex-column">
 					<span>Ahoj</span>
 					<span class="message-timestamp ">10:59</span>

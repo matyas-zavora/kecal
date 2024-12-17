@@ -30,15 +30,4 @@ class ChatroomRepository extends AbstractRepository
 		$this->getEntityManager()->persist($chatroom);
 		$this->getEntityManager()->flush();
 	}
-
-	public function getAllMessagesFromChatroom(ChatroomEntity $chatroom): array
-	{
-		return $this->_em->createQueryBuilder()->from(ChatroomEntity::class, 'c')
-			->select('m')
-			->join('c.messages', 'm')
-			->where('c.id = :chatroomId')
-			->setParameter('chatroomId', $chatroom->getId())
-			->getQuery()
-			->getResult();
-	}
 }

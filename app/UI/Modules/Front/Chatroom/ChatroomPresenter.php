@@ -49,7 +49,6 @@ class ChatroomPresenter extends Presenter
 		if ($this->chatroom !== null){
 			$template->selectedChatroomMessages = $this->messageRepository->getMessagesForChatroom($this->chatroom);
 			$template->selectedChatroom = $this->chatroomRepository->find($this->chatroom);
-			$template->messages = $this->messageRepository->getMessagesForChatroom($this->chatroom);
 		}
 
 		$template->setFile(__DIR__ . '/chatroom.latte');

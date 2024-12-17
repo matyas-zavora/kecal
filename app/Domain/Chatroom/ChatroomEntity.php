@@ -2,7 +2,6 @@
 
 namespace App\Domain\Chatroom;
 
-use App\Domain\Message\MessageEntity;
 use App\Domain\User\User;
 use App\Model\Database\Entity\AbstractEntity;
 use DateTime;
@@ -15,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ChatroomEntity extends AbstractEntity
 {
-
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -31,7 +29,7 @@ class ChatroomEntity extends AbstractEntity
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
-	 * @ORM\JoinColumn(nullable=false
+	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private User $user2;
 
@@ -40,13 +38,6 @@ class ChatroomEntity extends AbstractEntity
 
 	/** @ORM\Column(type="datetime", nullable=true) */
 	private ?DateTime $lastMessageAt = null;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="App\Domain\Message\MessageEntity", mappedBy="chatroom")
-	 * @ORM\JoinColumn(nullable=false)
-	 * @phpstan-ignore-next-line
-	 */
-	private MessageEntity $message;
 
 	public function __construct(User $user1, User $user2)
 	{
@@ -103,10 +94,4 @@ class ChatroomEntity extends AbstractEntity
 
 		return $this->user1;
 	}
-
-	public function getAllMessages(): MessageEntity
-	{
-		return $this->message;
-	}
-
 }

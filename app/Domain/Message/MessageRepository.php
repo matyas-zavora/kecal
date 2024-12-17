@@ -2,6 +2,8 @@
 
 namespace App\Domain\Message;
 
+use App\Domain\Chatroom\ChatroomEntity;
+use App\Domain\User\User;
 use App\Model\Database\Repository\AbstractRepository;
 
 /**
@@ -24,4 +26,14 @@ class MessageRepository extends AbstractRepository
 			->getResult();
 	}
 
+	public function createNewMessage(string $content, ChatroomEntity $chatroom, User $sender): void
+	{
+		$message = new MessageEntity(
+			chatroom: $chatroom,
+			sender: $sender,
+			content: $content
+		);
+		$this->getEntityManager()->persist($message);
+		$this->getEntityManager()->flush();
+	}
 }

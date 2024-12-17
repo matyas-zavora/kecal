@@ -114,7 +114,7 @@ composer create-project -s dev contributte/webapp-skeleton acme
    parameters:
        # Database
        database:
-           host: database
+           host: postgres
            dbname: webapp
            user: webapp
            password: webapp

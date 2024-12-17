@@ -14,6 +14,7 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class ChatroomRepository extends AbstractRepository
 {
+
 	/** @return ChatroomEntity[] */
 	public function getAllChatroomsForUser(int $userId): array
 	{
@@ -30,4 +31,5 @@ class ChatroomRepository extends AbstractRepository
 		$this->getEntityManager()->persist($chatroom);
 		$this->getEntityManager()->flush();
 	}
+
 }

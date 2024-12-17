@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MessageEntity extends AbstractEntity
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -34,14 +35,10 @@ class MessageEntity extends AbstractEntity
 	 */
 	private User $sender;
 
-	/**
-	 * @ORM\Column(type="text")
-	 */
+	/** @ORM\Column(type="text") */
 	private string $content;
 
-	/**
-	 * @ORM\Column(type="datetime")
-	 */
+	/** @ORM\Column(type="datetime") */
 	private DateTime $sentAt;
 
 	public function __construct(ChatroomEntity $chatroom, User $sender, string $content)
@@ -76,4 +73,5 @@ class MessageEntity extends AbstractEntity
 	{
 		return $this->sentAt;
 	}
+
 }

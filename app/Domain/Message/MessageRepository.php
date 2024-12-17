@@ -36,4 +36,5 @@ class MessageRepository extends AbstractRepository
 		$this->getEntityManager()->persist($message);
 		$this->getEntityManager()->flush();
 	}
+
 }

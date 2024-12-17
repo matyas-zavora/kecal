@@ -64,6 +64,7 @@ class UserRepository extends AbstractRepository
 		return $user;
 	}
 
+	/** @return User[] */
 	public function getNonChatUsers(int $userId): array
 	{
 		$qb = $this->createQueryBuilder('u');

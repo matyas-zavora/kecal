@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ChatroomEntity extends AbstractEntity
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -94,4 +95,5 @@ class ChatroomEntity extends AbstractEntity
 
 		return $this->user1;
 	}
+
 }

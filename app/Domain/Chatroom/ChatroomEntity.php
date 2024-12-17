@@ -31,7 +31,7 @@ class ChatroomEntity extends AbstractEntity
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
-	 * @ORM\JoinColumn(nullable=false)
+	 * @ORM\JoinColumn(nullable=false
 	 */
 	private User $user2;
 
@@ -42,7 +42,7 @@ class ChatroomEntity extends AbstractEntity
 	private ?DateTime $lastMessageAt = null;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Domain\Message\MessageEntity", inversedBy="chatroom")
+	 * @ORM\OneToMany(targetEntity="App\Domain\Message\MessageEntity", mappedBy="chatroom")
 	 * @ORM\JoinColumn(nullable=false)
 	 * @phpstan-ignore-next-line
 	 */
@@ -102,6 +102,11 @@ class ChatroomEntity extends AbstractEntity
 		}
 
 		return $this->user1;
+	}
+
+	public function getAllMessages(): MessageEntity
+	{
+		return $this->message;
 	}
 
 }

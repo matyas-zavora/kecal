@@ -2,6 +2,7 @@
 
 namespace App\Domain\User;
 
+use App\Domain\Chatroom\ChatroomEntity;
 use App\Model\Database\Repository\AbstractRepository;
 use Exception;
 
@@ -61,6 +62,28 @@ class UserRepository extends AbstractRepository
 		}
 
 		return $user;
+	}
+
+	public function getNonChatUsers(int $userId): array
+	{
+		$qb = $this->createQueryBuilder('u');
+
+		$qb->where(
+			$qb->expr()->not(
+				$qb->expr()->exists(
+					$this->_em->createQueryBuilder()
+						->select('1')
+						->from(ChatroomEntity::class, 'c')
+						->where('c.user1 = u OR c.user2 = u')
+						->andWhere('(:currentUserId = c.user1 OR :currentUserId = c.user2)')
+						->getDQL()
+				)
+			)
+		)
+			->andWhere('u.id != :currentUserId')
+			->setParameter('currentUserId', $userId);
+
+		return $qb->getQuery()->getResult();
 	}
 
 }

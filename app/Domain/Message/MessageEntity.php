@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MessageEntity extends AbstractEntity
 {
-
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -30,12 +29,12 @@ class MessageEntity extends AbstractEntity
 	private User $sender;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
+	 * @ORM\ManyToOne(targetEntity="App\Domain\Chatroom\ChatroomEntity", inversedBy="messages")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private ChatroomEntity $chatroom;
 
-	/** @ORM\Column(type="datetime") */
+	/** @ORM\Column(type="datetimetz") */
 	private DateTime $sentAt;
 
 	/** @ORM\Column(type="text") */

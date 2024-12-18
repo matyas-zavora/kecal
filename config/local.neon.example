@@ -2,7 +2,7 @@
 parameters:
     # Database
     database:
-        host: database
+        host: postgres
         dbname: kecal
         user: contributte
         password: contributte

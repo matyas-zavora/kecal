@@ -17,4 +17,4 @@
 
 /.idea
 .env.local
-.docker/data/*
+.docker/data

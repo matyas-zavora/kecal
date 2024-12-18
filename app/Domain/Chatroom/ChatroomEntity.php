@@ -2,7 +2,6 @@
 
 namespace App\Domain\Chatroom;
 
-use App\Domain\Message\MessageEntity;
 use App\Domain\User\User;
 use App\Model\Database\Entity\AbstractEntity;
 use DateTime;
@@ -40,13 +39,6 @@ class ChatroomEntity extends AbstractEntity
 
 	/** @ORM\Column(type="datetime", nullable=true) */
 	private ?DateTime $lastMessageAt = null;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="App\Domain\Message\MessageEntity", inversedBy="chatroom")
-	 * @ORM\JoinColumn(nullable=false)
-	 * @phpstan-ignore-next-line
-	 */
-	private MessageEntity $message;
 
 	public function __construct(User $user1, User $user2)
 	{

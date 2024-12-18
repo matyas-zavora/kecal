@@ -30,6 +30,14 @@ services:
 
     # Domain =================
     - App\Domain\User\CreateUserFacade
+    messageRepository:
+    	class: App\Domain\Message\MessageRepository
+    	create: @Doctrine\ORM\EntityManagerInterface::getRepository('App\Domain\Message\MessageEntity')
+
+    chatroomRepository:
+    	class: App\Domain\Chatroom\ChatroomRepository
+    	create: @Doctrine\ORM\EntityManagerInterface::getRepository('App\Domain\Chatroom\ChatroomEntity')
+
     userRepository:
     	class: App\Domain\User\UserRepository
     	create: @Doctrine\ORM\EntityManagerInterface::getRepository('App\Domain\User\User')

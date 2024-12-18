@@ -24,34 +24,34 @@ class MessageEntity extends AbstractEntity
 	private int $id;
 
 	/**
+	 * @ORM\ManyToOne(targetEntity="App\Domain\Chatroom\ChatroomEntity", inversedBy="messages")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private ChatroomEntity $chatroom;
+
+	/**
 	 * @ORM\ManyToOne(targetEntity="App\Domain\User\User")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private User $sender;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="App\Domain\Chatroom\ChatroomEntity", mappedBy="message")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private ChatroomEntity $chatroom;
+	/** @ORM\Column(type="text") */
+	private string $content;
 
 	/** @ORM\Column(type="datetime") */
 	private DateTime $sentAt;
 
-	/** @ORM\Column(type="text") */
-	private string $content;
-
-	public function __construct(User $sender, ChatroomEntity $chatroom, string $content)
+	public function __construct(ChatroomEntity $chatroom, User $sender, string $content)
 	{
-		$this->sender = $sender;
 		$this->chatroom = $chatroom;
+		$this->sender = $sender;
 		$this->content = $content;
 		$this->sentAt = new DateTime();
 	}
 
-	public function getSender(): User
+	public function getId(): int
 	{
-		return $this->sender;
+		return $this->id;
 	}
 
 	public function getChatroom(): ChatroomEntity
@@ -59,14 +59,19 @@ class MessageEntity extends AbstractEntity
 		return $this->chatroom;
 	}
 
-	public function getSentAt(): DateTime
+	public function getSender(): User
 	{
-		return $this->sentAt;
+		return $this->sender;
 	}
 
 	public function getContent(): string
 	{
 		return $this->content;
+	}
+
+	public function getSentAt(): DateTime
+	{
+		return $this->sentAt;
 	}
 
 }

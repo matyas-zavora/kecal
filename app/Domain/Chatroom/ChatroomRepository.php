@@ -2,6 +2,7 @@
 
 namespace App\Domain\Chatroom;
 
+use App\Domain\User\User;
 use App\Model\Database\Repository\AbstractRepository;
 
 /**
@@ -22,6 +23,13 @@ class ChatroomRepository extends AbstractRepository
 			->setParameter('userId', $userId)
 			->getQuery()
 			->getResult();
+	}
+
+	public function createNewChatroom(User $user1, User $user2): void
+	{
+		$chatroom = new ChatroomEntity($user1, $user2);
+		$this->getEntityManager()->persist($chatroom);
+		$this->getEntityManager()->flush();
 	}
 
 }

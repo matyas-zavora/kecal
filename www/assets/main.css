@@ -104,7 +104,6 @@
 	/*padding: 12px 22px;*/
 	font: 500 24px Livvic, sans-serif;
 	color: #fff;
-	z-index: -1;
 }
 .chat-messages {
 	display: flex;

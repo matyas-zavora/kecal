@@ -99,10 +99,10 @@ class ChatroomPresenter extends Presenter
 
 	public function handleFetchNewMessages(string $chatroomId): void
 	{
-		$messages = $this->messageRepository->getMessagesForChatroom((int)$chatroomId);
+		$messages = $this->messageRepository->getMessagesForChatroom((int) $chatroomId);
 
 		$tmp = [];
-		foreach ($messages as $message){
+		foreach ($messages as $message) {
 			$tmp[] = [
 				'content' => $message->getContent(),
 				'sender' => (string) $message->getSender()->getId(),
@@ -112,4 +112,5 @@ class ChatroomPresenter extends Presenter
 
 		$this->sendJson($tmp);
 	}
+
 }

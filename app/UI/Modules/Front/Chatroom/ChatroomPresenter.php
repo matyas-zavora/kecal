@@ -97,4 +97,20 @@ class ChatroomPresenter extends Presenter
 		$this->redirect('this');
 	}
 
+	public function handleFetchNewMessages(string $chatroomId): void
+	{
+		$messages = $this->messageRepository->getMessagesForChatroom((int) $chatroomId);
+
+		$tmp = [];
+		foreach ($messages as $message) {
+			$tmp[] = [
+				'content' => $message->getContent(),
+				'sender' => (string) $message->getSender()->getId(),
+				'sentAt' => $message->getSentAt()->format('d. m. Y. h:m'),
+			];
+		}
+
+		$this->sendJson($tmp);
+	}
+
 }

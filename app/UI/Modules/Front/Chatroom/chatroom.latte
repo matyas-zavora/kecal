@@ -67,41 +67,64 @@
 			</div>
 		</div>
 		<div class="chat-main col-12 col-lg-8 col-md-8 px-0 d-flex flex-column justify-content-between" n:ifset="$selectedId">
-				<div class="chat-header d-flex justify-content-between align-items-center px-md-5 py-3 px-4">
-					<div class="profile-info">
-						<img src="{$selectedChatroom->getSecondUser($userData)->getGravatar()}"
-							 class="contact-avatar rounded-circle"/>
-						<span class="contact-name">{$selectedChatroom->getSecondUser($userData)->getFullname()}</span>
+			<div class="chat-header d-flex justify-content-between align-items-center px-md-5 py-3 px-4">
+				<div class="profile-info">
+					<img src="{$selectedChatroom->getSecondUser($userData)->getGravatar()}"
+						 class="contact-avatar rounded-circle"/>
+					<span class="contact-name">{$selectedChatroom->getSecondUser($userData)->getFullname()}</span>
+				</div>
+			</div>
+			<div class="chat-messages flex-fill" n:snippet="message">
+				{if count($selectedChatroomMessages) > 0}
+					<div n:foreach="$selectedChatroomMessages as $message"
+							class="message-bubble px-3 d-flex flex-column {if $message->getSender()->getId() === $userData->getId()}sent{else}received{/if}">
+						<span>{$message->getContent()}</span>
+						<span class="message-timestamp ">{$message->getSentAt()->format('d. m. Y. h:m')}</span>
 					</div>
+				{else}
+					<span>Start chatting!</span>
+				{/if}
+			</div>
+			<div class="message-input-nav d-flex justify-content-center align-items-center row justify-self-start mx-0"
+				 n:ifset="$selectedChatroom")>
+				<div class="message-input d-flex justify-content-between align-items-center px-4 py-2 col-11">
+					<form n:name="sendMessageForm" class="w-100 d-flex justify-content-between">
+						<input class="d-none" n:name="chatroomId" value="{$selectedChatroom->getId()}">
+						<input n:name="message" type="text" id="messageField" class="input-field px-3"
+												placeholder="Type something"/>
+						<button n:name="submit" class="bg-transparent border-0">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+								 fill="rgba(154,104,255,1)">
+								<path d="M1.94607 9.31543C1.42353 9.14125 1.4194 8.86022 1.95682 8.68108L21.043 2.31901C21.5715 2.14285 21.8746 2.43866 21.7265 2.95694L16.2733 22.0432C16.1223 22.5716 15.8177 22.59 15.5944 22.0876L11.9999 14L17.9999 6.00005L9.99992 12L1.94607 9.31543Z"></path>
+							</svg>
+						</button>
+					</form>
 				</div>
-				<div class="chat-messages flex-fill	">
-					{if count($selectedChatroomMessages) > 0}
-						<div n:foreach="$selectedChatroomMessages as $message"
-								class="message-bubble px-3 d-flex flex-column {if $message->getSender()->getId() === $userData->getId()}sent{else}received{/if}">
-							<span>{$message->getContent()}</span>
-							<span class="message-timestamp ">{$message->getSentAt()->format('d. m. Y. h:m')}</span>
-						</div>
-					{else}
-						<span>Start chatting!</span>
-					{/if}
-				</div>
-				<div class="message-input-nav d-flex justify-content-center align-items-center row justify-self-start mx-0" n:ifset="$selectedChatroom")>
-					<div class="message-input d-flex justify-content-between align-items-center px-4 py-2 col-11">
-						<form n:name="sendMessageForm" class="w-100 d-flex justify-content-between">
-							<input class="d-none" n:name="chatroomId" value="{$selectedChatroom->getId()}">
-							<input n:name="message" type="text" id="messageField" class="input-field px-3" placeholder="Type something"/>
-							<button n:name="submit" class="bg-transparent border-0">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
-									 fill="rgba(154,104,255,1)">
-									<path d="M1.94607 9.31543C1.42353 9.14125 1.4194 8.86022 1.95682 8.68108L21.043 2.31901C21.5715 2.14285 21.8746 2.43866 21.7265 2.95694L16.2733 22.0432C16.1223 22.5716 15.8177 22.59 15.5944 22.0876L11.9999 14L17.9999 6.00005L9.99992 12L1.94607 9.31543Z"></path>
-								</svg>
-							</button>
-						</form>
-					</div>
-				</div>
-
+			</div>
 		</div>
-
 	</div>
 </div>
 </div>
+<script n:ifset="$selectedChatroom">
+	document.addEventListener('DOMContentLoaded', function () {
+		const chatroomId = {php echo json_encode($selectedChatroom->getId())};
+		const fetchMessages = () => {
+			fetch(`?do=fetchNewMessages&chatroomId=` + chatroomId)
+					.then(response => response.json())
+					.then(data => {
+						const chatMessagesContainer = document.querySelector('.chat-messages');
+						chatMessagesContainer.innerHTML = '';
+						data.forEach(message => {
+							const messageBubble = document.createElement('div');
+							messageBubble.classList.add('message-bubble', 'px-3', 'd-flex', 'flex-column');
+							messageBubble.classList.add(message.sender === {(string)$userData->getId()} ? 'sent' : 'received');
+							messageBubble.innerHTML = `<span>` + message.content + `</span><span class="message-timestamp">` + message.sentAt + `</span>`;
+							chatMessagesContainer.appendChild(messageBubble);
+						});
+					})
+					.catch(error => console.error('Error fetching messages:', error));
+		};
+
+		setInterval(fetchMessages, 5000);
+	});
+</script>
